@@ -66,7 +66,27 @@
   var trailerId = typeof featured.trailerYouTubeId === "string" &&
     /^[\w-]{6,20}$/.test(featured.trailerYouTubeId.trim()) ? featured.trailerYouTubeId.trim() : "";
 
-  if (media && trailerId) {
+  var clip = featured.clip || {};
+  var clipSrc = typeof clip.src === "string" ? clip.src.trim() : "";
+
+  if (media && clipSrc) {
+    // Short gameplay recording hosted in the repo (assets/video/...).
+    var video = document.createElement("video");
+    video.className = "trailer";
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = true; // lets visitors pause the loop
+    video.preload = "metadata";
+    if (typeof clip.poster === "string" && clip.poster.trim()) video.poster = clip.poster.trim();
+    video.setAttribute("aria-label", clip.alt || "Cursed Needle gameplay clip");
+    if (!reduceMotion.matches) video.autoplay = true;
+    var source = document.createElement("source");
+    source.src = clipSrc;
+    source.type = /\.webm$/i.test(clipSrc) ? "video/webm" : "video/mp4";
+    video.appendChild(source);
+    media.replaceChildren(video);
+  } else if (media && trailerId) {
     var frame = document.createElement("iframe");
     frame.src = "https://www.youtube-nocookie.com/embed/" + trailerId;
     frame.title = "Cursed Needle trailer";

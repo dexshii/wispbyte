@@ -15,6 +15,7 @@ Live address: **https://wispbytestudio.com**
 └── assets/
     ├── css/styles.css
     ├── js/main.js
+    ├── video/              ← gameplay clips (create when you add the first one)
     ├── fonts/              ← Pixelify Sans (headings) + Nunito (body), self-hosted, SIL OFL
     └── img/                ← emblem, banner (desktop + mobile crop), icons, social image
 ```
@@ -32,7 +33,8 @@ Only `https://` links are accepted.
 | `links.robloxGroup` | "Roblox Group" button + footer link | ✅ set |
 | `links.contactEmail` | Contact line + footer "Email" link. Use a verified studio address only. | empty (hidden) |
 | `featuredGame.robloxUrl` | "View on Roblox" button on Cursed Needle | empty (hidden) |
-| `featuredGame.trailerYouTubeId` | Trailer replaces the placeholder art | empty |
+| `featuredGame.clip` | Short gameplay video (MP4/WebM in `assets/video/`) plays muted on a loop in the featured card | empty |
+| `featuredGame.trailerYouTubeId` | YouTube trailer replaces the placeholder art | empty |
 | `featuredGame.screenshots` | First screenshot replaces the placeholder art; the rest show as a strip | empty |
 | `games` | Extra game cards under "From the Workshop" | empty (section hidden) |
 
@@ -43,6 +45,37 @@ screenshots: [
   { src: "assets/img/cursed-needle-1.webp", alt: "The needle flying back through three slimes" }
 ]
 ```
+
+**Adding a gameplay clip:** put the video in `assets/video/`, then:
+
+```js
+clip: {
+  src: "assets/video/cursed-needle-gameplay.mp4",
+  poster: "assets/img/cursed-needle-1.webp",   // frame shown before it loads
+  alt: "Throwing and recalling the needle through a group of enemies"
+}
+```
+
+The main slot uses whichever is set first: clip, then YouTube trailer, then the first screenshot. Visitors who prefer reduced motion see the clip paused with controls.
+
+### Capturing media from Roblox Studio
+
+Aim for footage that shows the throw → reposition → recall loop:
+
+- **Screenshots:** set the Studio window or play-test to a 16:9 size (e.g. 1920×1080) and hide the Studio panels so only the game view shows. Take 3–6 shots: a recall hitting several enemies, a stolen power in use, an item combo, the HUD.
+- **Gameplay clip:** record 8–20 seconds with a screen recorder (Windows: Xbox Game Bar `Win+Alt+R`, or OBS; macOS: `Cmd+Shift+5`). Trim it to the best loop, without sound.
+- **Size it for the web** (needs [ffmpeg](https://ffmpeg.org)):
+
+  ```bash
+  ffmpeg -i raw.mov -vf "scale=1280:-2,fps=30" -an -c:v libx264 -crf 26 -preset slow -movflags +faststart assets/video/cursed-needle-gameplay.mp4
+  ```
+
+  ```bash
+  ffmpeg -i shot.png -vf "scale=1600:-2" -quality 85 assets/img/cursed-needle-1.webp
+  ```
+
+  Keep clips under ~10 MB and screenshots under ~400 KB each.
+- **File names:** use lowercase with dashes, e.g. `cursed-needle-1.webp`, `cursed-needle-gameplay.mp4`.
 
 **Adding a new game card:** add an object to `games`:
 

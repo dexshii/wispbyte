@@ -21,6 +21,12 @@ window.WISPBYTE_CONFIG = {
     // Shows the "View on Roblox" button when filled.
     robloxUrl: "",
 
+    // Short gameplay recording stored in the repo (MP4 or WebM, ideally under ~10 MB), e.g.
+    // { src: "assets/video/cursed-needle-gameplay.mp4", poster: "assets/img/cursed-needle-1.webp", alt: "Throwing and recalling the needle through a group of enemies" }
+    // Plays muted on a loop in the featured card (paused for visitors who prefer reduced motion).
+    // Takes priority over the trailer and screenshots for the main slot.
+    clip: { src: "", poster: "", alt: "" },
+
     // YouTube video ID for a trailer (the part after "v=" in the URL), e.g. "dQw4w9WgXcQ".
     // Shown instead of the placeholder art when filled.
     trailerYouTubeId: "",
