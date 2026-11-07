@@ -740,7 +740,7 @@ html.gate { overflow: hidden; }
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
   margin: 0;
   padding: 0;
@@ -748,7 +748,8 @@ html.gate { overflow: hidden; }
 }
 .game-card.mini { height: 100%; display: flex; flex-direction: column; }
 .game-card.mini .game-media { border-right: 0; border-bottom: 2px solid var(--plum-600); aspect-ratio: 16 / 9; min-height: 0; }
-.game-card.mini .game-media img { width: 100%; height: 100%; object-fit: cover; }
+.game-card.mini .game-media img,
+.game-card.mini .game-media video { width: 100%; height: 100%; object-fit: cover; }
 .game-card.mini .game-media.empty { align-content: center; gap: 14px; }
 .game-card.mini .game-media.empty img { width: min(30%, 120px); height: auto; image-rendering: pixelated; opacity: 0.85; }
 .media-soon {
@@ -760,20 +761,43 @@ html.gate { overflow: hidden; }
   color: var(--ivory-dim);
 }
 
-/* One upcoming game: show it wide (media beside the text) instead of a lone narrow card. */
-.game-grid.is-single { grid-template-columns: 1fr; }
-@media (min-width: 861px) {
-  .game-grid.is-single .game-card.mini { flex-direction: row; }
-  .game-grid.is-single .game-card.mini .game-media {
+/* Workshop grid: 1 column on phones, 2 on tablets, 3 on desktop when there are exactly 3.
+   A card left alone on the last row spans the full width and is laid out wide (media beside text). */
+@media (min-width: 641px) {
+  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .game-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .game-grid > li:last-child:nth-child(odd) .game-card.mini {
+    flex-direction: row;
+  }
+  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-media {
     flex: 0 0 48%;
     aspect-ratio: auto;
     min-height: 300px;
     border-bottom: 0;
     border-right: 2px solid var(--plum-600);
   }
-  .game-grid.is-single .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
-  .game-grid.is-single .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
-  .game-grid.is-single .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
+  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
+  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
+  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
+}
+@media (min-width: 1024px) {
+  .game-grid.count-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .game-grid.count-3 > li:last-child { grid-column: auto; }
+  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini {
+    flex-direction: row;
+  }
+  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-media {
+    flex: 0 0 48%;
+    aspect-ratio: auto;
+    min-height: 300px;
+    border-bottom: 0;
+    border-right: 2px solid var(--plum-600);
+  }
+  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
+  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
+  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
 }
 .game-card.mini .game-body { padding: 22px; flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
 .game-card.mini .game-title { font-size: 1.6rem; }

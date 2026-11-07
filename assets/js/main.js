@@ -66,11 +66,10 @@
   var trailerId = typeof featured.trailerYouTubeId === "string" &&
     /^[\w-]{6,20}$/.test(featured.trailerYouTubeId.trim()) ? featured.trailerYouTubeId.trim() : "";
 
-  var clip = featured.clip || {};
-  var clipSrc = typeof clip.src === "string" ? clip.src.trim() : "";
-
-  if (media && clipSrc) {
-    // Short gameplay recording hosted in the repo (assets/video/...).
+  // Short gameplay recording hosted in the repo (assets/video/...): muted loop with controls.
+  function makeClip(clip, fallbackLabel) {
+    var src = clip && typeof clip.src === "string" ? clip.src.trim() : "";
+    if (!src) return null;
     var video = document.createElement("video");
     video.className = "trailer";
     video.muted = true;
@@ -79,13 +78,19 @@
     video.controls = true; // lets visitors pause the loop
     video.preload = "metadata";
     if (typeof clip.poster === "string" && clip.poster.trim()) video.poster = clip.poster.trim();
-    video.setAttribute("aria-label", clip.alt || "Cursed Needle gameplay clip");
+    video.setAttribute("aria-label", clip.alt || fallbackLabel);
     if (!reduceMotion.matches) video.autoplay = true;
     var source = document.createElement("source");
-    source.src = clipSrc;
-    source.type = /\.webm$/i.test(clipSrc) ? "video/webm" : "video/mp4";
+    source.src = src;
+    source.type = /\.webm$/i.test(src) ? "video/webm" : "video/mp4";
     video.appendChild(source);
-    media.replaceChildren(video);
+    return video;
+  }
+
+  var featuredClip = makeClip(featured.clip, "Cursed Needle gameplay clip");
+
+  if (media && featuredClip) {
+    media.replaceChildren(featuredClip);
   } else if (media && trailerId) {
     var frame = document.createElement("iframe");
     frame.src = "https://www.youtube-nocookie.com/embed/" + trailerId;
@@ -129,7 +134,10 @@
       var card = el("article", "game-card mini");
 
       var mediaBox = el("div", "game-media");
-      if (g.image && g.image.src) {
+      var cardClip = makeClip(g.clip, g.title + " gameplay clip");
+      if (cardClip) {
+        mediaBox.appendChild(cardClip);
+      } else if (g.image && g.image.src) {
         var img = el("img");
         img.src = g.image.src;
         img.alt = g.image.alt || "";
@@ -174,7 +182,7 @@
       li.appendChild(card);
       grid.appendChild(li);
     });
-    grid.classList.toggle("is-single", grid.children.length === 1);
+    grid.classList.add("count-" + grid.children.length);
     if (grid.children.length) document.querySelector("[data-more-games]").hidden = false;
   }
 
