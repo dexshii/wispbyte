@@ -25,16 +25,25 @@ window.WISPBYTE_CONFIG = {
     // { src: "assets/video/cursed-needle-gameplay.mp4", poster: "assets/img/cursed-needle-1.webp", alt: "Throwing and recalling the needle through a group of enemies" }
     // Plays muted on a loop in the featured card (paused for visitors who prefer reduced motion).
     // Takes priority over the trailer and screenshots for the main slot.
-    clip: { src: "", poster: "", alt: "" },
+    clip: {
+      src: "/assets/video/cursed-needle-gameplay.mp4",
+      poster: "/assets/img/cursed-needle-power-stolen.webp",
+      alt: "Cursed Needle gameplay: throwing the needle, stealing Snare and Scatter powers on the recall, building a x4 combo, landing a perfect catch and clearing the room"
+    },
 
     // YouTube video ID for a trailer (the part after "v=" in the URL), e.g. "dQw4w9WgXcQ".
-    // Shown instead of the placeholder art when filled.
+    // Used in the main slot when there is no clip.
     trailerYouTubeId: "",
 
     // Real screenshots placed in assets/img/, e.g.
     // { src: "assets/img/cursed-needle-1.webp", alt: "The needle flying back through three slimes" }
-    // The first one replaces the placeholder art (if there is no trailer); the rest appear as a strip below.
-    screenshots: []
+    // Shown as a strip under the featured card. With no clip or trailer, the first one fills the main slot instead.
+    screenshots: [
+      { src: "/assets/img/cursed-needle-title.webp", alt: "Cursed Needle title screen: Throw. Dodge. Recall. Reap." },
+      { src: "/assets/img/cursed-needle-recall.webp", alt: "Recalling the needle through a Button Eye enemy to steal its power" },
+      { src: "/assets/img/cursed-needle-combo.webp", alt: "A Snare trail and Scatter shots building a x4 combo" },
+      { src: "/assets/img/cursed-needle-perfect-catch.webp", alt: "Perfect Catch: the next throw is sharper" }
+    ]
   },
 
   /*

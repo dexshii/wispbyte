@@ -33,12 +33,12 @@ Only `https://` links are accepted.
 | `links.robloxGroup` | "Roblox Group" button + footer link | ✅ set |
 | `links.contactEmail` | Contact line + footer "Email" link. Use a verified studio address only. | empty (hidden) |
 | `featuredGame.robloxUrl` | "View on Roblox" button on Cursed Needle | empty (hidden) |
-| `featuredGame.clip` | Short gameplay video (MP4/WebM in `assets/video/`) plays muted on a loop in the featured card | empty |
-| `featuredGame.trailerYouTubeId` | YouTube trailer replaces the placeholder art | empty |
-| `featuredGame.screenshots` | First screenshot replaces the placeholder art; the rest show as a strip | empty |
+| `featuredGame.clip` | Short gameplay video (MP4/WebM in `assets/video/`) plays muted on a loop in the featured card | ✅ set |
+| `featuredGame.trailerYouTubeId` | YouTube trailer in the featured card (used when there is no clip) | empty |
+| `featuredGame.screenshots` | Screenshot strip under the featured card | ✅ 4 shots |
 | `games` | Extra game cards under "From the Workshop" | empty (section hidden) |
 
-**Adding a screenshot:** put the image in `assets/img/` (WebP or PNG, 16:9 looks best), then:
+**Adding a screenshot:** crop it to the game view only, put it in `assets/img/` (WebP or PNG), then:
 
 ```js
 screenshots: [
