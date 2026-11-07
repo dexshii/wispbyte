@@ -69,14 +69,14 @@ window.WISPBYTE_CONFIG = {
    *   image: { src: "/assets/img/game-name-1.webp", alt: "What the screenshot shows" }
    *   With neither, the card shows the emblem and "Screenshots & video coming soon".
    *
-   *   status:    e.g. "Planned", "In Development", "Released"
+   *   status:    e.g. "In Development", "Coming Soon", "Released"
    *   tags:      short keywords shown as pills
    *   robloxUrl: the "View on Roblox" button appears once this is filled
    */
   games: [
     {
       title: "AFTERCUT",
-      status: "Planned",
+      status: "In Development",
       description: "A neon-noir action game where everything dies in one hit, including you. Slow time, cut bullets back at whoever fired them, and carve a clean path through every floor. Pull off a perfect clear and watch the whole run play back as one uncut take.",
       tags: ["One-hit kills", "Slow time", "Deflect bullets", "Replay every clear"],
       clip: { src: "", poster: "", alt: "" },
@@ -85,7 +85,7 @@ window.WISPBYTE_CONFIG = {
     },
     {
       title: "Stonewake",
-      status: "Planned",
+      status: "In Development",
       description: "Dig into a world that keeps going down. Mine ore, craft sharper tools, and build a base that holds when night falls. Every layer you break through hides new caverns, stranger creatures and something ancient waiting to wake.",
       tags: ["Dig & build", "Crafting", "Deep caverns", "Boss fights"],
       clip: { src: "", poster: "", alt: "" },
@@ -94,9 +94,18 @@ window.WISPBYTE_CONFIG = {
     },
     {
       title: "Mothgrave",
-      status: "Planned",
+      status: "In Development",
       description: "Descend into the ruins of a buried moth kingdom, lit only by the things that still glow. Explore one vast, interconnected underworld, learn its tough and precise combat, and bind relics that change how you fight. Every forgotten corner hides a secret, a shortcut, or a guardian that never stopped waiting.",
       tags: ["Metroidvania", "Hand-drawn world", "Tough bosses", "Relic builds"],
+      clip: { src: "", poster: "", alt: "" },
+      image: { src: "", alt: "" },
+      robloxUrl: ""
+    },
+    {
+      title: "Cloverbrook",
+      status: "In Development",
+      description: "Trade the noise for a patch of overgrown land at the edge of a sleepy valley town. Plant and harvest through the seasons, fish the brook, raise animals and get to know your neighbors. Fix up the old farm, uncover what the valley has been hiding, and make Cloverbrook feel like home.",
+      tags: ["Farming", "Seasons", "Cozy town life", "Fishing & foraging"],
       clip: { src: "", poster: "", alt: "" },
       image: { src: "", alt: "" },
       robloxUrl: ""
