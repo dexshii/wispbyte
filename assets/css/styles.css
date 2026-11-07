@@ -210,8 +210,8 @@ a:hover { color: var(--ivory); }
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 12px;
   height: var(--header-h);
 }
 
@@ -236,6 +236,37 @@ a:hover { color: var(--ivory); }
   letter-spacing: 0.02em;
 }
 .brand:hover { color: var(--amber); }
+.brand { margin-right: auto; }
+
+/* music on/off */
+.music-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--ivory-dim);
+  background: var(--plum-700);
+  border: 2px solid var(--plum-600);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.music-toggle:hover { color: var(--ivory); border-color: var(--violet); }
+.music-toggle.is-playing { color: var(--amber); border-color: rgba(242, 173, 78, 0.55); }
+.music-icon { width: 22px; height: 22px; }
+.music-bars rect { fill: currentColor; transform-box: fill-box; transform-origin: center bottom; }
+.music-toggle .music-bars { display: none; }
+.music-toggle.is-playing .music-bars { display: inline; }
+.music-toggle.is-playing .music-off { display: none; }
+.music-toggle.is-playing .music-bars rect { animation: eq 0.9s steps(3) infinite alternate; }
+.music-toggle.is-playing .music-bars rect:nth-child(2) { animation-delay: -0.3s; }
+.music-toggle.is-playing .music-bars rect:nth-child(3) { animation-delay: -0.6s; }
+@keyframes eq {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1); }
+}
 
 .site-nav ul {
   display: flex;
@@ -765,13 +796,22 @@ a:hover { color: var(--ivory); }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
-@media (max-width: 374px) {
-  .brand { gap: 8px; }
-  .brand-name { font-size: 1rem; white-space: nowrap; }
-  .nav-toggle { padding: 8px 12px; }
+@media (max-width: 480px) {
+  .header-inner { gap: 8px; }
+  .brand-name { white-space: nowrap; }
+  .js .nav-toggle { width: 44px; padding: 0; justify-content: center; }
   .js .nav-toggle-label {
     position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
   }
+}
+
+@media (max-width: 374px) {
+  .brand { gap: 8px; }
+  .brand-name { font-size: 1rem; }
+}
+
+@media (max-width: 349px) {
+  .js .brand-name { display: none; }
 }
 
 /* ---------- reduced motion ---------- */
@@ -786,5 +826,6 @@ a:hover { color: var(--ivory); }
   }
   .cover-lid,
   .wisps { display: none; }
-  .status-dot { animation: none; }
+  .status-dot,
+  .music-toggle.is-playing .music-bars rect { animation: none; }
 }

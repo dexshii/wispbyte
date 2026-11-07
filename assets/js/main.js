@@ -176,6 +176,120 @@
     if (grid.children.length) document.querySelector("[data-more-games]").hidden = false;
   }
 
+  /* ---------- background music ---------- */
+  var music = config.music || {};
+  var musicBtn = document.querySelector("[data-music-toggle]");
+  var musicSrc = typeof music.src === "string" ? music.src.trim() : "";
+
+  if (musicBtn && musicSrc) {
+    var PREF_KEY = "wispbyte-music";
+    var targetVolume = Math.min(1, Math.max(0, Number(music.volume) || 0.5));
+    var audio = new Audio();
+    audio.src = musicSrc;
+    audio.loop = true;
+    audio.preload = "none";
+    audio.volume = 0;
+
+    var fadeTimer = null;
+    var resumeOnVisible = false;
+    var stopping = false; // true while fading out, so a quick second click turns music back on
+    var title = typeof music.title === "string" && music.title.trim() ? music.title.trim() : "Background music";
+
+    var readPref = function () {
+      try { return window.localStorage.getItem(PREF_KEY); } catch (e) { return null; }
+    };
+    var writePref = function (value) {
+      try { window.localStorage.setItem(PREF_KEY, value); } catch (e) { /* storage blocked: ignore */ }
+    };
+
+    var render = function () {
+      var playing = !audio.paused && !stopping;
+      musicBtn.setAttribute("aria-pressed", String(playing));
+      musicBtn.classList.toggle("is-playing", playing);
+      musicBtn.title = (playing ? "Pause music: " : "Play music: ") + title;
+    };
+
+    var fadeTo = function (to, done) {
+      window.clearInterval(fadeTimer);
+      var step = (to - audio.volume) / 30;
+      fadeTimer = window.setInterval(function () {
+        var next = audio.volume + step;
+        if ((step >= 0 && next >= to) || (step < 0 && next <= to) || step === 0) {
+          audio.volume = to;
+          window.clearInterval(fadeTimer);
+          if (done) done();
+        } else {
+          audio.volume = next;
+        }
+      }, 50);
+    };
+
+    var start = function () {
+      stopping = false;
+      if (!audio.paused) { fadeTo(targetVolume); render(); return Promise.resolve(true); }
+      audio.volume = 0;
+      var attempt = audio.play();
+      if (attempt && attempt.then) {
+        return attempt.then(function () { fadeTo(targetVolume); render(); return true; },
+          function () { render(); return false; });
+      }
+      fadeTo(targetVolume);
+      render();
+      return Promise.resolve(true);
+    };
+
+    var stop = function () {
+      stopping = true;
+      render();
+      fadeTo(0, function () { stopping = false; audio.pause(); render(); });
+    };
+
+    // Browsers block sound until the visitor interacts, so retry on the first click, tap or key.
+    var unlockEvents = ["pointerdown", "keydown", "touchstart"];
+    var onFirstInteraction = function (e) {
+      if (e.target.closest && e.target.closest("[data-music-toggle]")) return; // the button handles itself
+      if (e.type === "keydown" && (e.key === "Escape" || e.key === "Tab" || e.altKey || e.ctrlKey || e.metaKey)) return;
+      start().then(function (ok) { if (ok) removeUnlock(); });
+    };
+    var removeUnlock = function () {
+      unlockEvents.forEach(function (t) { document.removeEventListener(t, onFirstInteraction, true); });
+    };
+
+    musicBtn.addEventListener("click", function () {
+      removeUnlock();
+      if (audio.paused || stopping) {
+        writePref("on");
+        start();
+      } else {
+        writePref("off");
+        stop();
+      }
+    });
+
+    audio.addEventListener("play", render);
+    audio.addEventListener("pause", render);
+
+    // Pause in background tabs, resume when the visitor comes back.
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden && !audio.paused) {
+        resumeOnVisible = true;
+        audio.pause();
+      } else if (!document.hidden && resumeOnVisible) {
+        resumeOnVisible = false;
+        start();
+      }
+    });
+
+    musicBtn.hidden = false;
+    render();
+
+    if (readPref() !== "off") {
+      start().then(function (ok) {
+        if (!ok) unlockEvents.forEach(function (t) { document.addEventListener(t, onFirstInteraction, true); });
+      });
+    }
+  }
+
   /* ---------- year ---------- */
   var year = document.querySelector("[data-year]");
   if (year) year.textContent = String(new Date().getFullYear());

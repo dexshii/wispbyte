@@ -15,6 +15,19 @@ window.WISPBYTE_CONFIG = {
     contactEmail: ""
   },
 
+  /*
+   * Background music. Loops quietly; visitors can switch it off with the
+   * speaker button in the header (their choice is remembered).
+   * Browsers only allow sound after the visitor clicks, taps or presses a key,
+   * so it starts on that first interaction if it can't start right away.
+   * Leave src as "" to remove the music and the button.
+   */
+  music: {
+    src: "/assets/audio/midnight-save-point.mp3",
+    title: "Midnight Save Point",
+    volume: 0.5            // 0–1, on top of the already-quiet file (iPhones ignore this and use the file's level)
+  },
+
   /* Featured game: Cursed Needle */
   featuredGame: {
     // Roblox experience page, e.g. "https://www.roblox.com/games/1234567890/Cursed-Needle"

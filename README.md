@@ -15,6 +15,7 @@ Live address: **https://wispbytestudio.com**
 └── assets/
     ├── css/styles.css
     ├── js/main.js
+    ├── audio/              ← background music
     ├── video/              ← gameplay clips (create when you add the first one)
     ├── fonts/              ← Pixelify Sans (headings) + Nunito (body), self-hosted, SIL OFL
     └── img/                ← emblem, banner (desktop + mobile crop), icons, social image
@@ -29,6 +30,7 @@ Only `https://` links are accepted.
 
 | Setting | What it shows | Current |
 |---|---|---|
+| `music` | Quiet looping background music + speaker button in the header (`src: ""` removes both) | ✅ Midnight Save Point |
 | `links.discord` | "Join our Discord" button + footer link | ✅ set |
 | `links.robloxGroup` | "Roblox Group" button + footer link | ✅ set |
 | `links.contactEmail` | Contact line + footer "Email" link. Use a verified studio address only. | empty (hidden) |
@@ -37,6 +39,12 @@ Only `https://` links are accepted.
 | `featuredGame.trailerYouTubeId` | YouTube trailer in the featured card (used when there is no clip) | empty |
 | `featuredGame.screenshots` | Screenshot strip under the featured card | ✅ 4 shots |
 | `games` | Extra game cards under "From the Workshop" | empty (section hidden) |
+
+**Background music:** `assets/audio/midnight-save-point.mp3` was trimmed, faded at both ends for a smooth loop, and lowered to about -24 LUFS. iPhones ignore volume set from the page, so the file itself is kept quiet. Browsers only allow sound after the visitor clicks, taps or presses a key. The music starts on that first interaction, and the speaker button turns it on or off (the choice is remembered). It pauses in background tabs. To use another track at the same level:
+
+```bash
+ffmpeg -i new-track.mp3 -af "loudnorm=I=-24:TP=-3:LRA=7" -b:a 128k -map_metadata -1 assets/audio/new-track.mp3
+```
 
 **Adding a screenshot:** crop it to the game view only, put it in `assets/img/` (WebP or PNG), then:
 
