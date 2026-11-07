@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wispbyte Studios · 2D sprite games on Roblox</title>
+  <meta name="description" content="Wispbyte Studios is two friends making 2D sprite games on Roblox. Our featured project, Cursed Needle, is in development.">
+  <link rel="canonical" href="https://wispbytestudio.com/">
+  <meta name="theme-color" content="#1b0b1b">
+  <meta name="color-scheme" content="dark">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wispbyte Studios">
+  <meta property="og:title" content="Wispbyte Studios">
+  <meta property="og:description" content="Two friends making 2D sprite games on Roblox.">
+  <meta property="og:url" content="https://wispbytestudio.com/">
+  <meta property="og:image" content="https://wispbytestudio.com/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Wispbyte Studios banner with the purple eye emblem">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preload" href="/assets/fonts/pixelify-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/nunito-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="/site-config.js" defer></script>
+  <script src="/assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Wispbyte Studios, back to top">
+        <img src="/assets/img/wispbyte-emblem.webp" width="44" height="44" alt="">
+        <span class="brand-name">Wispbyte Studios</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-icon" aria-hidden="true"></span>
+        <span class="nav-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#community">Community</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO / BOOK COVER ============ -->
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <div class="wisps" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="wrap hero-inner">
+        <!-- The studio name is already painted on the banner, so the main heading is for screen readers only. -->
+        <h1 id="page-title" class="sr-only">Wispbyte Studios</h1>
+
+        <div class="cover">
+          <span class="cover-corner tl" aria-hidden="true"></span>
+          <span class="cover-corner tr" aria-hidden="true"></span>
+          <span class="cover-corner bl" aria-hidden="true"></span>
+          <span class="cover-corner br" aria-hidden="true"></span>
+
+          <picture>
+            <source media="(max-width: 640px)"
+                    srcset="/assets/img/wispbyte-banner-mobile-800.webp 800w, /assets/img/wispbyte-banner-mobile.webp 1320w"
+                    sizes="100vw" width="1320" height="667">
+            <img class="banner"
+                 src="/assets/img/wispbyte-banner.webp"
+                 srcset="/assets/img/wispbyte-banner-1200.webp 1200w, /assets/img/wispbyte-banner.webp 2000w"
+                 sizes="(max-width: 1180px) 100vw, 1120px"
+                 width="2000" height="667"
+                 fetchpriority="high"
+                 alt="Wispbyte Studios banner: a purple eye emblem in a cracked ivory frame, inside a moonlit pixel-art dungeon with a black cat, a little ghost and glowing mushrooms.">
+          </picture>
+
+          <!-- Book cover that swings open on first load (decorative; skipped when reduced motion is on) -->
+          <div class="cover-lid" aria-hidden="true">
+            <img src="/assets/img/wispbyte-emblem.webp" width="120" height="120" alt="">
+          </div>
+        </div>
+
+        <p class="tagline">Two friends making 2D sprite games on Roblox.</p>
+        <a class="btn btn-primary" href="#games">
+          Explore Our Games
+          <span class="btn-arrow" aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ GAMES ============ -->
+    <section class="page" id="games" aria-labelledby="games-title">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <p class="chapter">Chapter I</p>
+          <h2 id="games-title">Featured Game</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </header>
+
+        <article class="game-card featured reveal" aria-labelledby="cn-title">
+          <div class="game-media" data-featured-media>
+            <figure class="placeholder-art">
+              <img src="/assets/img/cursed-needle-placeholder.svg" width="480" height="300"
+                   alt="Pixel-art illustration of a cursed needle trailing purple thread.">
+              <figcaption>Screenshots coming soon</figcaption>
+            </figure>
+          </div>
+
+          <div class="game-body">
+            <p class="eyebrow">Featured Game</p>
+            <h3 id="cn-title" class="game-title">Cursed Needle</h3>
+            <p class="status"><span class="status-dot" aria-hidden="true"></span>In Development</p>
+            <p class="game-desc">Throw the needle, move into position, and recall it through your enemies. Steal their powers on the return and combine items to change how each run plays.</p>
+
+            <ol class="loop" aria-label="Core loop">
+              <li><span class="loop-num" aria-hidden="true">1</span>Throw</li>
+              <li><span class="loop-num" aria-hidden="true">2</span>Reposition</li>
+              <li><span class="loop-num" aria-hidden="true">3</span>Recall &amp; steal</li>
+            </ol>
+
+            <div class="actions">
+              <a class="btn btn-primary" data-link="featuredGame.robloxUrl" hidden target="_blank" rel="noopener">
+                View on Roblox <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <ul class="shots" data-featured-shots hidden></ul>
+
+        <div class="more-games" data-more-games hidden>
+          <h3 class="subhead">From the Workshop</h3>
+          <ul class="game-grid" data-game-grid></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="page page-alt" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <p class="chapter">Chapter II</p>
+          <h2 id="about-title">About Wispbyte</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </header>
+
+        <div class="about reveal">
+          <p class="lede">We’re two friends who like the strange corners of the map: crooked dungeons, quiet ghosts and creatures that look a little too pleased to see you.</p>
+          <p>Wispbyte is our small studio for building those places as 2D sprite games on Roblox. We draw the pixels, write the code and test every run together, one odd idea at a time.</p>
+        </div>
+
+        <ul class="pillars reveal">
+          <li>
+            <span class="pillar-icon" aria-hidden="true">☾</span>
+            <h3>Strange worlds</h3>
+            <p>Moonlit ruins, cursed objects and places that don’t quite follow the rules.</p>
+          </li>
+          <li>
+            <span class="pillar-icon" aria-hidden="true">◈</span>
+            <h3>Pixel creatures</h3>
+            <p>Hand-made sprites with personality, from tiny wisps to things with too many eyes.</p>
+          </li>
+          <li>
+            <span class="pillar-icon" aria-hidden="true">✦</span>
+            <h3>2D on Roblox</h3>
+            <p>Sprite-based games built to play great with friends, right inside Roblox.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY ============ -->
+    <section class="page" id="community" aria-labelledby="community-title">
+      <div class="wrap">
+        <header class="section-head reveal">
+          <p class="chapter">Chapter III</p>
+          <h2 id="community-title">Community</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </header>
+
+        <div class="community reveal">
+          <p>Follow development, share ideas and be first in line when Cursed Needle opens its doors.</p>
+          <div class="actions center">
+            <a class="btn btn-discord" data-link="links.discord" hidden target="_blank" rel="noopener">
+              <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.5 3.2A13 13 0 0 0 10.3 2l-.4.8a12 12 0 0 0-3.8 0L5.7 2a13 13 0 0 0-3.2 1.2C.5 6.2 0 9.1.2 12a13 13 0 0 0 4 2l.8-1.3-1.3-.6.3-.2a9.3 9.3 0 0 0 8 0l.3.2-1.3.6.8 1.3a13 13 0 0 0 4-2c.3-3.4-.5-6.2-2.3-8.8ZM5.6 10.3c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.4.7 1.4 1.6-.6 1.6-1.4 1.6Zm4.8 0c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.4.7 1.4 1.6-.6 1.6-1.4 1.6Z"/></svg>
+              Join our Discord <span class="sr-only">(opens in a new tab)</span>
+            </a>
+            <a class="btn btn-ghost" data-link="links.robloxGroup" hidden target="_blank" rel="noopener">
+              <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.6 1 1 11.6 12.4 15 15 4.4 3.6 1Zm6.2 8.8-3.3-.9.9-3.3 3.3.9-.9 3.3Z"/></svg>
+              Roblox Group <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </div>
+          <p class="contact" data-contact hidden>
+            Business &amp; press: <a data-link="links.contactEmail" data-mailto></a>
+          </p>
+          <p class="links-pending" data-links-pending hidden>Community links are coming soon.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img src="/assets/img/wispbyte-emblem.webp" width="36" height="36" alt="">
+        <span>Wispbyte Studios</span>
+      </div>
+      <ul class="footer-links" aria-label="Community links">
+        <li data-footer-item hidden><a data-link="links.discord" target="_blank" rel="noopener">Discord<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li data-footer-item hidden><a data-link="links.robloxGroup" target="_blank" rel="noopener">Roblox Group<span class="sr-only"> (opens in a new tab)</span></a></li>
+        <li data-footer-item hidden><a data-link="links.contactEmail" data-mailto>Email</a></li>
+      </ul>
+      <p class="fineprint">© <span data-year>2026</span> Wispbyte Studios. Not affiliated with Roblox Corporation.</p>
+    </div>
+  </footer>
+</body>
+</html>
