@@ -56,7 +56,7 @@ window.WISPBYTE_CONFIG = {
    *   description: "One or two sentences about the game.",
    *   image: { src: "assets/img/lantern-moth.webp", alt: "Short description of the image" },
    *   robloxUrl: "",                  // optional
-   *   tags: ["2D sprite", "Co-op"]    // optional
+   *   tags: ["Action", "Co-op"]    // optional
    * }
    */
   games: []

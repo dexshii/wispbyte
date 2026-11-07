@@ -1,6 +1,6 @@
 # Wispbyte Studios website
 
-The one-page studio site for **Wispbyte Studios**: two friends making 2D sprite games on Roblox.
+The one-page studio site for **Wispbyte Studios**: two friends making games on Roblox.
 It's plain HTML, CSS and a little JavaScript. There is no build step, and `index.html` in the repo root is the page Netlify publishes.
 
 Live address: **https://wispbytestudio.com**
@@ -87,7 +87,7 @@ games: [
     description: "One or two sentences about the game.",
     image: { src: "assets/img/lantern-moth.webp", alt: "Short description of the image" },
     robloxUrl: "",               // optional; the button appears once filled
-    tags: ["2D sprite", "Co-op"] // optional
+    tags: ["Action", "Co-op"] // optional
   }
 ]
 ```
