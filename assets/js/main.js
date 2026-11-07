@@ -49,6 +49,8 @@
     if (footerItem) footerItem.hidden = false;
     var contact = link.closest("[data-contact]");
     if (contact) contact.hidden = false;
+    var reveal = link.closest("[data-reveal-with-link]");
+    if (reveal) reveal.hidden = false;
   });
 
   var links = config.links || {};
