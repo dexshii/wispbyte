@@ -362,6 +362,86 @@ a:hover { color: var(--ivory); }
   html:not(.js) .brand-name { display: none; }
 }
 
+/* ---------- opening screen ---------- */
+.intro-gate { display: none; }
+html.gate { overflow: hidden; }
+.gate .intro-gate {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  perspective: 2200px;
+}
+.gate-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: clamp(12px, 2.5vh, 22px);
+  padding: 32px 24px;
+  text-align: center;
+  cursor: pointer;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0 2px, transparent 2px 6px),
+    radial-gradient(ellipse at 50% 42%, rgba(151, 32, 214, 0.28), transparent 55%),
+    radial-gradient(circle at 50% 50%, var(--plum-700), var(--plum-950) 80%);
+  box-shadow:
+    inset 0 0 0 clamp(8px, 1.6vw, 16px) var(--plum-950),
+    inset 0 0 0 calc(clamp(8px, 1.6vw, 16px) + 2px) rgba(242, 173, 78, 0.4);
+  transform-origin: left center;
+  backface-visibility: hidden;
+}
+.gate-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--amber);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+.gate-corner.tl { top: clamp(18px, 3vw, 30px); left: clamp(18px, 3vw, 30px); }
+.gate-corner.tr { top: clamp(18px, 3vw, 30px); right: clamp(18px, 3vw, 30px); }
+.gate-corner.bl { bottom: clamp(18px, 3vw, 30px); left: clamp(18px, 3vw, 30px); }
+.gate-corner.br { bottom: clamp(18px, 3vw, 30px); right: clamp(18px, 3vw, 30px); }
+.gate-emblem {
+  width: clamp(120px, 24vmin, 200px);
+  height: auto;
+  image-rendering: pixelated;
+  border-radius: 4px;
+  filter: drop-shadow(0 0 28px rgba(151, 32, 214, 0.65));
+  animation: gate-float 4s ease-in-out infinite;
+}
+.gate-title {
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  font-size: clamp(2rem, 7vw, 3.6rem);
+  line-height: 1.1;
+  color: var(--ivory);
+  text-shadow: 3px 3px 0 var(--plum-950), 0 0 24px rgba(151, 32, 214, 0.5);
+}
+.gate-cover .ornament { margin: 0; width: min(320px, 70vw); }
+.gate-btn { --btn-bg: var(--amber); --btn-fg: var(--plum-900); margin-top: 8px; font-size: 1.25rem; padding: 0.8em 1.8em; }
+.gate-btn:hover { --btn-bg: #f7be6b; }
+.gate-hint { margin: 0; max-width: 32ch; font-size: 0.95rem; color: var(--ivory-dim); }
+
+.intro-gate.is-opening { pointer-events: none; }
+.intro-gate.is-opening .gate-cover { animation: gate-open 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+
+@keyframes gate-open {
+  0%   { transform: rotateY(0deg); opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: rotateY(-108deg); opacity: 0; }
+}
+@keyframes gate-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* The opening screen is the book opening, so skip the smaller banner cover animation. */
+.gate .cover-lid,
+.gate-done .cover-lid { display: none; }
+
 /* ---------- hero / book cover ---------- */
 .hero {
   position: relative;
@@ -826,6 +906,8 @@ a:hover { color: var(--ivory); }
   }
   .cover-lid,
   .wisps { display: none; }
+  .gate-emblem { animation: none; }
+  .intro-gate.is-opening .gate-cover { animation: none; opacity: 0; }
   .status-dot,
   .music-toggle.is-playing .music-bars rect { animation: none; }
 }

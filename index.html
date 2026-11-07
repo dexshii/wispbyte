@@ -29,11 +29,28 @@
   <link rel="preload" href="/assets/fonts/nunito-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/styles.css">
 
-  <script>document.documentElement.classList.add("js");</script>
+  <script>(function(d){d.classList.add("js");try{if(localStorage.getItem("wispbyte-music")!=="off")d.classList.add("gate")}catch(e){d.classList.add("gate")}})(document.documentElement);</script>
   <script src="/site-config.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
 </head>
 <body>
+  <!-- Opening screen: one click opens the "book" and starts the music
+       (browsers only allow sound after a click/tap/key). Shown only with JS,
+       and skipped for visitors who turned the music off. -->
+  <div class="intro-gate" data-gate role="dialog" aria-modal="true" aria-labelledby="gate-title" aria-describedby="gate-hint">
+    <div class="gate-cover">
+      <span class="gate-corner tl" aria-hidden="true"></span>
+      <span class="gate-corner tr" aria-hidden="true"></span>
+      <span class="gate-corner bl" aria-hidden="true"></span>
+      <span class="gate-corner br" aria-hidden="true"></span>
+      <img class="gate-emblem" src="/assets/img/wispbyte-emblem.webp" width="180" height="180" alt="">
+      <p id="gate-title" class="gate-title">Wispbyte Studios</p>
+      <div class="ornament" aria-hidden="true"><span></span></div>
+      <button class="btn gate-btn" type="button" data-gate-open>Click to open</button>
+      <p id="gate-hint" class="gate-hint"><span aria-hidden="true">♪</span> Music will play. Mute it anytime from the top bar.</p>
+    </div>
+  </div>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">

@@ -40,7 +40,7 @@ Only `https://` links are accepted.
 | `featuredGame.screenshots` | Screenshot strip under the featured card | ✅ 4 shots |
 | `games` | Extra game cards under "From the Workshop" | empty (section hidden) |
 
-**Background music:** `assets/audio/midnight-save-point.mp3` was trimmed, faded at both ends for a smooth loop, and lowered to about -24 LUFS. iPhones ignore volume set from the page, so the file itself is kept quiet. Browsers only allow sound after the visitor clicks, taps or presses a key. The music starts on that first interaction, and the speaker button turns it on or off (the choice is remembered). It pauses in background tabs. To use another track at the same level:
+**Background music:** `assets/audio/midnight-save-point.mp3` was trimmed, faded at both ends for a smooth loop, and lowered to about -24 LUFS. iPhones ignore volume set from the page, so the file itself is kept quiet. Browsers only allow sound after the visitor clicks, taps or presses a key, so the site opens with a full-screen book cover ("Click to open"). That one click opens the cover and starts the music. The speaker button in the header turns it on or off. Visitors who turn it off skip the cover on later visits, and so do visitors without JavaScript. Music pauses in background tabs. Removing `music.src` also removes the cover. To use another track at the same level:
 
 ```bash
 ffmpeg -i new-track.mp3 -af "loudnorm=I=-24:TP=-3:LRA=7" -b:a 128k -map_metadata -1 assets/audio/new-track.mp3
@@ -182,5 +182,5 @@ Back in Netlify → **Domain management** → **HTTPS**: once the DNS check pass
 - **Accessibility:** skip link, a screen-reader-only `<h1>` (the banner already shows the studio name), descriptive alt text, visible focus outlines, a keyboard-operable mobile menu (Esc closes it), and contrast at or above WCAG AA.
 - **Motion:** the "book cover opening" intro, drifting wisps, and scroll fade-ins are switched off when the visitor's system has *Reduce motion* turned on.
 - **Without JavaScript:** content and navigation still work. Config-driven buttons stay hidden rather than showing broken links.
-- **Security headers** (CSP etc.) are set in `netlify.toml`. If you later add an inline `<script>` or a third-party embed, update the `Content-Security-Policy` line there.
+- **Security headers** (CSP etc.) are set in `netlify.toml`. The one inline `<script>` in `index.html` (it decides whether to show the opening cover before the page draws) is allowed by its SHA-256 hash. If you change that script, update the hash in the `Content-Security-Policy` line. The same goes for any third-party embed you add.
 - Fonts: [Pixelify Sans](https://github.com/eifetx/Pixelify-Sans) and [Nunito](https://github.com/googlefonts/nunito), both under the SIL Open Font License (license files in `assets/fonts/`).

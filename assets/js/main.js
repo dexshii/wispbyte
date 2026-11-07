@@ -177,6 +177,9 @@
   }
 
   /* ---------- background music ---------- */
+  var startMusic = null;
+  var listenForFirstInteraction = null;
+  var root = document.documentElement;
   var music = config.music || {};
   var musicBtn = document.querySelector("[data-music-toggle]");
   var musicSrc = typeof music.src === "string" ? music.src.trim() : "";
@@ -283,11 +286,57 @@
     musicBtn.hidden = false;
     render();
 
-    if (readPref() !== "off") {
-      start().then(function (ok) {
-        if (!ok) unlockEvents.forEach(function (t) { document.addEventListener(t, onFirstInteraction, true); });
-      });
+    listenForFirstInteraction = function () {
+      unlockEvents.forEach(function (t) { document.addEventListener(t, onFirstInteraction, true); });
+    };
+    startMusic = start;
+
+    // With the opening screen, the music starts on its click (see below).
+    if (readPref() !== "off" && !root.classList.contains("gate")) {
+      start().then(function (ok) { if (!ok) listenForFirstInteraction(); });
     }
+  }
+
+  /* ---------- opening screen ("open the book") ---------- */
+  var gate = document.querySelector("[data-gate]");
+  if (gate && root.classList.contains("gate") && startMusic) {
+    var behind = document.querySelectorAll("body > :not([data-gate])");
+    var openBtn = gate.querySelector("[data-gate-open]");
+    var opened = false;
+
+    behind.forEach(function (el) { el.inert = true; });
+    if (window.matchMedia("(hover: none)").matches) openBtn.textContent = "Tap to open";
+    openBtn.focus({ preventScroll: true });
+
+    var finish = function () {
+      if (!gate.isConnected) return;
+      root.classList.remove("gate");
+      root.classList.add("gate-done");
+      gate.remove();
+    };
+
+    var openGate = function () {
+      if (opened) return;
+      opened = true;
+      document.removeEventListener("keydown", onGateKey, true);
+      startMusic().then(function (ok) { if (!ok) listenForFirstInteraction(); });
+      behind.forEach(function (el) { el.inert = false; });
+      gate.classList.add("is-opening");
+      gate.addEventListener("animationend", finish);
+      window.setTimeout(finish, reduceMotion.matches ? 250 : 1600);
+    };
+
+    var onGateKey = function (e) {
+      if (e.key === "Tab" || e.key === "Shift" || e.altKey || e.ctrlKey || e.metaKey) return;
+      e.preventDefault();
+      openGate();
+    };
+
+    gate.addEventListener("click", openGate);
+    document.addEventListener("keydown", onGateKey, true);
+  } else if (gate) {
+    root.classList.remove("gate");
+    gate.remove();
   }
 
   /* ---------- year ---------- */
