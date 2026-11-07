@@ -72,5 +72,14 @@ window.WISPBYTE_CONFIG = {
    *   tags: ["Action", "Co-op"]    // optional
    * }
    */
-  games: []
+  games: [
+    {
+      title: "AFTERCUT",
+      status: "Planned",
+      description: "A neon-noir action game where everything dies in one hit, including you. Slow time, cut bullets back at whoever fired them, and carve a clean path through every floor. Pull off a perfect clear and watch the whole run play back as one uncut take.",
+      // No screenshots or video yet: add image: { src, alt } here when you have them.
+      tags: ["One-hit kills", "Slow time", "Deflect bullets", "Replay every clear"],
+      robloxUrl: ""
+    }
+  ]
 };

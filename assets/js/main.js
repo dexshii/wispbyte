@@ -142,6 +142,7 @@
         emblem.src = "/assets/img/wispbyte-emblem.webp";
         emblem.alt = "";
         mediaBox.appendChild(emblem);
+        mediaBox.appendChild(el("p", "media-soon", "Screenshots & video coming soon"));
       }
       card.appendChild(mediaBox);
 
@@ -173,6 +174,7 @@
       li.appendChild(card);
       grid.appendChild(li);
     });
+    grid.classList.toggle("is-single", grid.children.length === 1);
     if (grid.children.length) document.querySelector("[data-more-games]").hidden = false;
   }
 
