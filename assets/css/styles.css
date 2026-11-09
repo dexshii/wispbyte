@@ -528,7 +528,10 @@ html.gate { overflow: hidden; }
   text-wrap: balance;
 }
 
+.hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
 .hero .btn { --btn-bg: var(--amber); --btn-fg: var(--plum-900); font-size: 1.25rem; padding: 0.75em 1.6em; }
+.hero .btn.btn-play { --btn-bg: var(--violet); --btn-fg: var(--ivory); }
+.hero .btn.btn-play:hover { --btn-bg: var(--violet-deep); }
 .hero .btn:hover { --btn-bg: #f7be6b; }
 
 /* drifting wisps */
@@ -687,6 +690,8 @@ html.gate { overflow: hidden; }
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse { 50% { opacity: 0.35; } }
+.status-live { color: #ffc978; border-color: var(--amber); background: rgba(242, 173, 78, 0.14); }
+.status-live .status-dot { animation: none; }
 
 .game-desc { color: var(--ivory-dim); font-size: 1.125rem; max-width: 46ch; }
 
@@ -931,6 +936,7 @@ html.gate { overflow: hidden; }
   .cover-corner.bl { bottom: -7px; left: -7px; }
   .cover-corner.br { bottom: -7px; right: -7px; }
   .hero .btn { width: 100%; max-width: 360px; }
+  .hero-actions { flex-direction: column; align-items: center; }
   .actions .btn { flex: 1 1 100%; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }

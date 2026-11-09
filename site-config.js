@@ -30,9 +30,9 @@ window.WISPBYTE_CONFIG = {
 
   /* Featured game: Cursed Needle */
   featuredGame: {
-    // Roblox experience page, e.g. "https://www.roblox.com/games/1234567890/Cursed-Needle"
-    // Shows the "View on Roblox" button when filled.
-    robloxUrl: "",
+    // Roblox experience page. Shows the "Play on Roblox" button on the card
+    // and the "Play Cursed Needle" button in the hero.
+    robloxUrl: "https://www.roblox.com/games/122611140288767/Cursed-Needle",
 
     // Short gameplay recording stored in the repo (MP4 or WebM, ideally under ~10 MB), e.g.
     // { src: "assets/video/cursed-needle-gameplay.mp4", poster: "assets/img/cursed-needle-1.webp", alt: "Throwing and recalling the needle through a group of enemies" }
