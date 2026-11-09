@@ -38,7 +38,7 @@ Only `https://` links are accepted.
 | `featuredGame.clip` | Short gameplay video (MP4/WebM in `assets/video/`) plays muted on a loop in the featured card | ✅ set |
 | `featuredGame.trailerYouTubeId` | YouTube trailer in the featured card (used when there is no clip) | empty |
 | `featuredGame.screenshots` | Screenshot strip under the featured card | ✅ 4 shots |
-| `games` | Extra game cards under "From the Workshop" (a card alone on the last row is shown wide; each card can take a `clip` video or an `image`, otherwise it says "Screenshots & video coming soon") | ✅ AFTERCUT, Stonewake, Mothgrave, Cloverbrook (no media yet) |
+| `games` | Extra game cards under "From the Workshop" (a card alone on the last row is shown wide; each card can take a `clip` video or an `image`, otherwise it says "Screenshots & video coming soon") | ✅ SOULBOUND (wide, 2 videos + 3 screenshots in a gallery), AFTERCUT, Stonewake, Mothgrave, Cloverbrook (no media yet) |
 
 **Background music:** `assets/audio/midnight-save-point.mp3` was trimmed, faded at both ends for a smooth loop, and lowered to about -24 LUFS. iPhones ignore volume set from the page, so the file itself is kept quiet. Browsers only allow sound after the visitor clicks, taps or presses a key, so the site opens with a full-screen book cover ("Click to open"). That one click opens the cover and starts the music. The speaker button in the header turns it on or off. Visitors who turn it off skip the cover on later visits, and so do visitors without JavaScript. Music pauses in background tabs. Removing `music.src` also removes the cover. To use another track at the same level:
 

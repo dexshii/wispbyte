@@ -127,27 +127,88 @@
   }
 
   /* ---------- more game cards ---------- */
+  function makeImage(item, lazy) {
+    var img = el("img");
+    img.src = item.src;
+    img.alt = item.alt || "";
+    if (lazy) img.loading = "lazy";
+    img.decoding = "async";
+    return img;
+  }
+
+  // One media item (video or image) for a card's main viewer.
+  function makeMediaItem(item, title) {
+    if (item.type === "video") return makeClip(item, title + " gameplay clip");
+    return makeImage(item, true);
+  }
+
+  // Steam-style gallery: a main viewer plus thumbnail buttons that swap what it shows.
+  function makeGallery(items, title) {
+    var box = el("div", "game-media has-gallery");
+    var view = el("div", "gallery-view");
+    view.appendChild(makeMediaItem(items[0], title));
+    box.appendChild(view);
+    if (items.length < 2) return box;
+
+    var thumbs = el("ul", "gallery-thumbs");
+    thumbs.setAttribute("aria-label", title + " screenshots and videos");
+    var buttons = [];
+    items.forEach(function (item, i) {
+      var li = el("li");
+      var btn = el("button", "gallery-thumb" + (item.type === "video" ? " is-video" : ""));
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Show " + (item.type === "video" ? "video" : "screenshot") + " " + (i + 1) + " of " + items.length + (item.alt ? ": " + item.alt : ""));
+      btn.setAttribute("aria-pressed", String(i === 0));
+      var thumbSrc = item.thumb || item.poster || (item.type === "video" ? "" : item.src);
+      if (thumbSrc) {
+        var t = el("img");
+        t.src = thumbSrc;
+        t.alt = "";
+        t.loading = "lazy";
+        t.decoding = "async";
+        btn.appendChild(t);
+      }
+      btn.addEventListener("click", function () {
+        if (btn.getAttribute("aria-pressed") === "true") return;
+        view.replaceChildren(makeMediaItem(item, title));
+        buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b === btn)); });
+      });
+      buttons.push(btn);
+      li.appendChild(btn);
+      thumbs.appendChild(li);
+    });
+    box.appendChild(thumbs);
+    return box;
+  }
+
+  function validMedia(list) {
+    return (Array.isArray(list) ? list : []).filter(function (m) {
+      return m && typeof m.src === "string" && m.src.trim();
+    });
+  }
+
   var games = Array.isArray(config.games) ? config.games : [];
   var grid = document.querySelector("[data-game-grid]");
   if (grid && games.length) {
+    var normalCards = [];
     games.forEach(function (g) {
       if (!g || !g.title) return;
       var li = el("li");
       var card = el("article", "game-card mini");
 
-      var mediaBox = el("div", "game-media");
+      var mediaBox;
+      var media = validMedia(g.media);
       var cardClip = makeClip(g.clip, g.title + " gameplay clip");
-      if (cardClip) {
+      if (media.length) {
+        mediaBox = makeGallery(media, g.title);
+      } else if (cardClip) {
+        mediaBox = el("div", "game-media");
         mediaBox.appendChild(cardClip);
       } else if (g.image && g.image.src) {
-        var img = el("img");
-        img.src = g.image.src;
-        img.alt = g.image.alt || "";
-        img.loading = "lazy";
-        img.decoding = "async";
-        mediaBox.appendChild(img);
+        mediaBox = el("div", "game-media");
+        mediaBox.appendChild(makeImage(g.image, true));
       } else {
-        mediaBox.classList.add("empty");
+        mediaBox = el("div", "game-media empty");
         var emblem = el("img");
         emblem.src = "/assets/img/wispbyte-emblem.webp";
         emblem.alt = "";
@@ -182,9 +243,13 @@
       }
       card.appendChild(body);
       li.appendChild(card);
+      if (g.wide) li.classList.add("is-wide");
+      else normalCards.push(li);
       grid.appendChild(li);
     });
-    grid.classList.add("count-" + grid.children.length);
+    // A regular card left alone on the last row is stretched so the grid has no gaps.
+    if (normalCards.length % 2 === 1) normalCards[normalCards.length - 1].classList.add("is-orphan");
+    grid.classList.add("count-" + normalCards.length);
     if (grid.children.length) document.querySelector("[data-more-games]").hidden = false;
   }
 

@@ -63,7 +63,11 @@ window.WISPBYTE_CONFIG = {
    * More games. Each object becomes a card under "From the Workshop".
    * The section stays hidden while this list is empty.
    *
-   * Media (optional, add any time):
+   * Gallery (several videos/images): media: [ { type: "video" | "image", src, poster (videos), thumb, alt }, ... ]
+   *   The first item fills the main viewer; thumbnails underneath switch between them.
+   * wide: true  -> the card spans the full width (media beside text). Good for a game you want to spotlight.
+   *
+   * Single media (optional, add any time):
    *   clip:  { src: "/assets/video/game-name.mp4", poster: "/assets/img/game-name-1.webp", alt: "What the clip shows" }
    *          plays muted on a loop in the card (takes priority over image)
    *   image: { src: "/assets/img/game-name-1.webp", alt: "What the screenshot shows" }
@@ -74,6 +78,21 @@ window.WISPBYTE_CONFIG = {
    *   robloxUrl: the "View on Roblox" button appears once this is filled
    */
   games: [
+    {
+      title: "SOULBOUND",
+      status: "In Development",
+      description: "In the Forgotten Reach, lost things are stitched into spirits. Then you find a box marked YOU? with your name inside, written in your own hand. Explore lantern-lit streets, dodge attacks as a tiny red heart, and decide which bonds to mend and which to cut.",
+      tags: ["Story-driven", "Exploration", "Dodge battles", "Mend or cut bonds"],
+      wide: true,
+      media: [
+        { type: "video", src: "/assets/video/soulbound-battle.mp4", poster: "/assets/img/soulbound-battle-poster.webp", thumb: "/assets/img/soulbound-battle-poster-thumb.webp", alt: "Battle against MITT, a living mitten: strike at the knot, then dodge its attacks as a tiny red heart" },
+        { type: "video", src: "/assets/video/soulbound-explore.mp4", poster: "/assets/img/soulbound-explore-poster.webp", thumb: "/assets/img/soulbound-explore-poster-thumb.webp", alt: "Exploring a lamplit records office and lighting a candle that remembers you" },
+        { type: "image", src: "/assets/img/soulbound-portrait.webp", thumb: "/assets/img/soulbound-portrait-thumb.webp", alt: "A faceless portrait in a gilded frame: \"Things that are forgotten don't vanish. They fall somewhere quieter.\"" },
+        { type: "image", src: "/assets/img/soulbound-thread.webp", thumb: "/assets/img/soulbound-thread-thumb.webp", alt: "A patchwork child and a lantern-headed spirit joined by a fraying red thread" },
+        { type: "image", src: "/assets/img/soulbound-soul.webp", thumb: "/assets/img/soulbound-soul-thumb.webp", alt: "A human soul in a beam of light, bound by a red thread to a hooded spirit" }
+      ],
+      robloxUrl: ""
+    },
     {
       title: "AFTERCUT",
       status: "In Development",

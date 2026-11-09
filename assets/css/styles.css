@@ -755,7 +755,7 @@ html.gate { overflow: hidden; }
 
 .game-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
   margin: 0;
   padding: 0;
@@ -776,43 +776,117 @@ html.gate { overflow: hidden; }
   color: var(--ivory-dim);
 }
 
-/* Workshop grid: 1 column on phones, 2 on tablets, 3 on desktop when there are exactly 3.
-   A card left alone on the last row spans the full width and is laid out wide (media beside text). */
+/* Workshop grid: 1 column on phones, 2 on tablets, 3 on desktop when there are exactly 3 regular cards.
+   Cards marked wide (config "wide: true") and a regular card left alone on the last row (.is-orphan)
+   span the full width and are laid out wide (media beside text). */
 @media (min-width: 641px) {
   .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .game-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .game-grid > li.is-wide,
+  .game-grid > li.is-orphan { grid-column: 1 / -1; }
 }
 @media (min-width: 641px) and (max-width: 1023px) {
-  .game-grid > li:last-child:nth-child(odd) .game-card.mini {
+  .game-grid > li.is-wide .game-card.mini,
+  .game-grid > li.is-orphan .game-card.mini {
     flex-direction: row;
   }
-  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-media {
+  .game-grid > li.is-wide .game-card.mini .game-media,
+  .game-grid > li.is-orphan .game-card.mini .game-media {
     flex: 0 0 48%;
     aspect-ratio: auto;
     min-height: 300px;
     border-bottom: 0;
     border-right: 2px solid var(--plum-600);
   }
-  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
-  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
-  .game-grid > li:last-child:nth-child(odd) .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
+  .game-grid > li.is-wide .game-card.mini .game-body,
+  .game-grid > li.is-orphan .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
+  .game-grid > li.is-wide .game-card.mini .game-title,
+  .game-grid > li.is-orphan .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
+  .game-grid > li.is-wide .game-card.mini .game-desc,
+  .game-grid > li.is-orphan .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
 }
 @media (min-width: 1024px) {
   .game-grid.count-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .game-grid.count-3 > li:last-child { grid-column: auto; }
-  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini {
+  .game-grid.count-3 > li.is-orphan { grid-column: auto; }
+  .game-grid > li.is-wide .game-card.mini,
+  .game-grid:not(.count-3) > li.is-orphan .game-card.mini {
     flex-direction: row;
   }
-  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-media {
+  .game-grid > li.is-wide .game-card.mini .game-media,
+  .game-grid:not(.count-3) > li.is-orphan .game-card.mini .game-media {
     flex: 0 0 48%;
     aspect-ratio: auto;
     min-height: 300px;
     border-bottom: 0;
     border-right: 2px solid var(--plum-600);
   }
-  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
-  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
-  .game-grid:not(.count-3) > li:last-child:nth-child(odd) .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
+  .game-grid > li.is-wide .game-card.mini .game-body,
+  .game-grid:not(.count-3) > li.is-orphan .game-card.mini .game-body { padding: clamp(24px, 3.5vw, 40px); justify-content: center; }
+  .game-grid > li.is-wide .game-card.mini .game-title,
+  .game-grid:not(.count-3) > li.is-orphan .game-card.mini .game-title { font-size: clamp(2rem, 3.5vw, 2.6rem); text-shadow: 3px 3px 0 var(--violet-deep); }
+  .game-grid > li.is-wide .game-card.mini .game-desc,
+  .game-grid:not(.count-3) > li.is-orphan .game-card.mini .game-desc { font-size: 1.0625rem; max-width: 48ch; }
+}
+
+/* Card gallery: main viewer + thumbnail buttons */
+.game-card.mini .game-media.has-gallery {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  aspect-ratio: auto;
+}
+.gallery-view {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 2px solid var(--plum-600);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.game-card.mini .gallery-view img,
+.game-card.mini .gallery-view video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.gallery-thumbs {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 2px;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.gallery-thumbs li { flex: 1 1 0; min-width: 44px; max-width: 140px; }
+.gallery-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 24px;
+  padding: 0;
+  background: #000;
+  border: 2px solid var(--plum-600);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0.65;
+  transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-thumb:hover { opacity: 1; }
+.gallery-thumb[aria-pressed="true"] { opacity: 1; border-color: var(--amber); }
+.gallery-thumb.is-video::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate(-35%, -50%);
+  border-style: solid;
+  border-width: 9px 0 9px 15px;
+  border-color: transparent transparent transparent var(--ivory);
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.9));
 }
 .game-card.mini .game-body { padding: 22px; flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
 .game-card.mini .game-title { font-size: 1.6rem; }
