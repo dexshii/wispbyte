@@ -19,8 +19,9 @@
     # Only load scripts, styles, fonts, images, audio and video from this site.
     # The sha256 hash allows the one tiny inline script in index.html (opening-cover check);
     # update it if that script changes. YouTube is allowed only for an optional trailer embed.
+    # Cloudflare Web Analytics: script from static.cloudflareinsights.com, reports to cloudflareinsights.com.
     # Trusted Types: page code may never inject raw HTML strings (blocks DOM-based XSS).
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-oniadWie6W741k8VuKlf8jQbpjUUmBBxnm0JVp/qqoU='; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'none'; object-src 'none'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-oniadWie6W741k8VuKlf8jQbpjUUmBBxnm0JVp/qqoU=' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self'; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; worker-src 'none'; object-src 'none'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types 'none'"
     # Never allow the site to be framed by another site (clickjacking).
     X-Frame-Options = "DENY"
     # Browsers must respect the declared file types.

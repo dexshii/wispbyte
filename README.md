@@ -177,6 +177,14 @@ Back in Netlify → **Domain management** → **HTTPS**: once the DNS check pass
 
 ---
 
+## Visitor stats (Cloudflare Web Analytics)
+
+`index.html` and `404.html` load Cloudflare's cookie-free measurement script (token `2d43988462c94009bf81ff0f9067cfdd`). See the numbers in Cloudflare under **Analytics & Logs → Web Analytics → wispbytestudio.com**: visits, page views, countries, devices, referrers (Discord, Google, Roblox…) and load speed. It counts visits, not button clicks.
+
+- No cookies, so no consent banner is needed.
+- DNS stays at Squarespace. The domain does **not** need to be added to Cloudflare or have its nameservers changed.
+- The CSP in `netlify.toml` allows only `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (reports). To remove analytics, delete the two `<script>` lines and those two CSP entries.
+
 ## Notes
 
 - **Accessibility:** skip link, a screen-reader-only `<h1>` (the banner already shows the studio name), descriptive alt text, visible focus outlines, a keyboard-operable mobile menu (Esc closes it), and contrast at or above WCAG AA.
